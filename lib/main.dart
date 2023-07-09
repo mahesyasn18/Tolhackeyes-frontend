@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tolhackeys/Auth/register.dart';
 import 'package:tolhackeys/Auth/signIn.dart';
 import 'package:tolhackeys/Auth/splash.dart';
 import 'package:tolhackeys/Home/main.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => SplashPage(),
         '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
         '/home-main': (context) => MyHomePageState(),
       },
     );

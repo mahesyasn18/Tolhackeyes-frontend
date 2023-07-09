@@ -6,12 +6,12 @@ Color textPrimary = Color(0xffFFFCF7);
 Color textSecondary = Color(0xff000000);
 Color textPriceMin = Color(0xffFF0000);
 Color textSubtitle = Color(0xff676D75);
-Color textInput = Color.fromARGB(255, 0, 13, 17).withOpacity(0.3);
+Color textInput = Color.fromARGB(255, 0, 13, 17).withOpacity(0.8);
 Color textSecondary2 = Color(0xff03242C).withOpacity(0.83);
 Color textLink = Color(0xff568AC3);
 Color textButtonSignup = Color(0xff012E40);
 Color bgButtonSignUp = Color(0xff27BDDE);
-Color bgInput = Color(0xffBABABA);
+Color bgInput = Color.fromARGB(255, 243, 243, 243);
 Color lineColor = Color(0xff454563).withOpacity(0.5);
 
 TextStyle primaryTextStyle = GoogleFonts.poppins(

@@ -15,7 +15,7 @@ class HistoryPage extends StatelessWidget {
         color: Color.fromARGB(255, 255, 255, 255),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
+            color: const Color.fromARGB(255, 233, 232, 232).withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 10,
             offset: Offset(6, 2), // changes position of shadow
@@ -36,7 +36,7 @@ class HistoryPage extends StatelessWidget {
                     height: 32,
                     width: 32,
                     decoration: BoxDecoration(
-                        color: Color.fromARGB(197, 221, 221, 221),
+                        color: Color.fromARGB(197, 240, 240, 240),
                         borderRadius: BorderRadius.circular(6)),
                     child: Image.asset(
                       'assets/icon_recently.png',
@@ -75,7 +75,7 @@ class HistoryPage extends StatelessWidget {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(197, 221, 221, 221),
+                    color: Color.fromARGB(197, 240, 240, 240),
                     borderRadius: BorderRadius.circular(6)),
                 child: Row(
                   children: [
