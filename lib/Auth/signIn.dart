@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tolhackeys/theme.dart';
 
@@ -106,10 +107,8 @@ class LoginPage extends StatelessWidget {
               child: Center(
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/icon_password.png',
-                      width: 20,
-                      color: textSecondary,
+                    Icon(
+                      CupertinoIcons.lock_fill,
                     ),
                     SizedBox(
                       width: 16,
@@ -305,7 +304,7 @@ class LoginPage extends StatelessWidget {
       return Container(
         margin: EdgeInsets.only(
           top: 40,
-          bottom: 20,
+          left: 20,
           right: 20,
         ),
         child: Row(

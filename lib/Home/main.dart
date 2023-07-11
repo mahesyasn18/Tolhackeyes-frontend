@@ -113,7 +113,7 @@ class _MyHomePageStateState extends State<MyHomePageState> {
         onItemTapped(index);
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 7),
+        padding: EdgeInsets.symmetric(vertical: 6),
         child: Column(
           children: [
             Icon(

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tolhackeys/theme.dart';
 
@@ -281,10 +282,8 @@ class RegisterPage extends StatelessWidget {
               child: Center(
                 child: Row(
                   children: [
-                    Image.asset(
-                      'assets/icon_password.png',
-                      width: 18,
-                      color: textSecondary,
+                    Icon(
+                      CupertinoIcons.lock_fill,
                     ),
                     SizedBox(
                       width: 16,
@@ -449,11 +448,11 @@ class RegisterPage extends StatelessWidget {
       );
     }
 
-    Widget signUp() {
+    Widget signIn() {
       return Container(
         margin: EdgeInsets.only(
           top: 40,
-          bottom: 20,
+          left: 20,
           right: 20,
         ),
         child: Row(
@@ -476,7 +475,6 @@ class RegisterPage extends StatelessWidget {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Container(
         child: Stack(
           fit: StackFit.expand,
@@ -542,7 +540,7 @@ class RegisterPage extends StatelessWidget {
                         registButton(),
                         loginOtherWays(),
                         logoLogin(),
-                        signUp(),
+                        signIn(),
                       ],
                     ),
                   ),
