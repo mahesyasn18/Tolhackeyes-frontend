@@ -9,7 +9,7 @@ class ScanPage extends StatelessWidget {
     Widget simContent() {
       return Container(
         margin: EdgeInsets.only(
-          top: 10,
+          top: 20,
         ),
         padding: EdgeInsets.only(top: 10, left: 20, right: 20),
         width: 365,
@@ -31,6 +31,7 @@ class ScanPage extends StatelessWidget {
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +65,7 @@ class ScanPage extends StatelessWidget {
                     Text(
                       'A',
                       style: secondaryTextStyle.copyWith(
-                        fontSize: 17,
+                        fontSize: 25,
                         fontWeight: bold,
                       ),
                     ),
@@ -79,6 +80,154 @@ class ScanPage extends StatelessWidget {
                 ),
               ],
             ),
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Row(
+                children: [
+                  Image.asset(
+                    'assets/bg_card_person.png',
+                    width: 72,
+                  ),
+                  SizedBox(
+                    width: 7,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nama ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        'Alamat',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        'Tempat & Lahir',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        'Tinggi',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        'Berat',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        'No SIM',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        'Berlaku sampai',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        ' :',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' : ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' : ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' : ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' : ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' : ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' : ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        ' Ikbal Alghifary',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' Jl. Ciwaruga No 21 ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' Bandung, XXXX ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' 170 cm ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' 58 kg ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' XXXXXXXXXXXXX ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                      Text(
+                        ' 23 Mei 2025 ',
+                        style: secondaryTextStyle.copyWith(
+                            fontSize: 10, fontWeight: bold),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  Image.asset(
+                    'assets/qr.png',
+                    width: 56,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            Image.asset(
+              'assets/barcode.png',
+              width: 73,
+            )
           ],
         ),
       );

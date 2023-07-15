@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tolhackeys/Auth/register.dart';
+import 'package:tolhackeys/Auth/registerSecond.dart';
 import 'package:tolhackeys/Auth/signIn.dart';
 import 'package:tolhackeys/Auth/splash.dart';
 import 'package:tolhackeys/Home/Transaction/detailTransactionPage.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashPage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
+        '/register-second': (context) => RegisterSecondPage(),
         '/home-main': (context) => MyHomePageState(),
         '/detail-transaction': (context) => DetailTransactionPage(),
         '/scan': (context) => ScanPage(),

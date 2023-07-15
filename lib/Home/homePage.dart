@@ -80,13 +80,41 @@ class HomePage extends StatelessWidget {
                 foreground: Paint()
                   ..shader = LinearGradient(
                     colors: [
-                      Color.fromARGB(211, 255, 172, 39),
-                      Color.fromARGB(255, 255, 178, 133),
-                      Colors.deepPurpleAccent,
+                      Color(0xff130CB7),
+                      Color.fromARGB(255, 44, 127, 159),
                       //add more color here.
                     ],
                   ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 100.0))),
           ),
+        ),
+      );
+    }
+
+    Widget contentCard() {
+      return Container(
+        padding: EdgeInsets.only(top: 26, left: 38, bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Saldo Anda',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              'Rp. 100.000',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 35, fontWeight: semiBold),
+            ),
+            Spacer(),
+            Text(
+              'Bank BRI',
+              style: primaryTextStyle.copyWith(fontSize: 15),
+            )
+          ],
         ),
       );
     }
@@ -109,14 +137,15 @@ class HomePage extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            begin: Alignment.topRight,
+                            begin: Alignment.topCenter,
                             end: Alignment.bottomLeft,
                             colors: [
-                              Color.fromARGB(255, 4, 16, 102),
-                              Colors.red,
+                              Color(0xff130CB7),
+                              Color(0xff52E5E7),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(12)),
+                      child: contentCard(),
                     );
                   },
                 );
@@ -128,9 +157,7 @@ class HomePage extends StatelessWidget {
                 initialPage: 0,
                 enableInfiniteScroll: true,
                 reverse: false,
-                autoPlay: true,
-                autoPlayInterval: Duration(seconds: 3),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
+                autoPlay: false,
                 autoPlayCurve: Curves.fastOutSlowIn,
                 enlargeCenterPage: true,
                 enlargeFactor: 0.3,

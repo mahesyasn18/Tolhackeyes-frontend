@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tolhackeys/theme.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,171 @@ class LoginPage extends StatelessWidget {
               height: 5,
             ),
             Text(
-              'Let’s login for explore continues.',
+              'Let’s Register for explore continues.',
               style: secondaryTextStyle2.copyWith(fontSize: 12),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget NIKField() {
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(
+          top: 55,
+          right: 20,
+          left: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_nik.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'NIK',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget nameField() {
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(
+          top: 20,
+          right: 20,
+          left: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_name.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Nama',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget jabatanField() {
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(
+          top: 20,
+          right: 20,
+          left: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_jabatan.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Jabatan',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -32,7 +195,7 @@ class LoginPage extends StatelessWidget {
       return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(
-          top: 55,
+          top: 20,
           right: 20,
           left: 20,
         ),
@@ -60,7 +223,10 @@ class LoginPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextFormField(
-                        style: inputTextStyle,
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
                         decoration: InputDecoration.collapsed(
                           hintText: 'E-mail',
                           hintStyle: inputTextStyle.copyWith(
@@ -95,7 +261,7 @@ class LoginPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(
                 horizontal: 16,
-                vertical: 5,
+                vertical: 6,
               ),
               decoration: boxDecorationForm,
               child: Center(
@@ -109,7 +275,10 @@ class LoginPage extends StatelessWidget {
                     ),
                     Expanded(
                       child: TextFormField(
-                        style: inputTextStyle,
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
                         obscureText: true,
                         decoration: InputDecoration.collapsed(
                           hintText: 'Password',
@@ -129,7 +298,7 @@ class LoginPage extends StatelessWidget {
       );
     }
 
-    Widget signInButton() {
+    Widget registButton() {
       return Center(
         child: Column(
           children: [
@@ -154,43 +323,13 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "Sign In",
+                  "Sign Up",
                   style: primaryTextStyle.copyWith(
                     fontWeight: medium,
                     color: Colors.white,
                     fontSize: 16,
                   ),
                 ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget haveAccount() {
-      return Container(
-        margin: EdgeInsets.only(
-          top: 24,
-          bottom: 20,
-          right: 20,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Forgotton your password? ',
-              style: buttonSignUpTextStyle.copyWith(
-                fontSize: 11,
-              ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/sign-up');
-              },
-              child: Text(
-                'ResetPassword',
-                style: LinkTextStyle.copyWith(fontSize: 11, fontWeight: medium),
               ),
             ),
           ],
@@ -271,10 +410,10 @@ class LoginPage extends StatelessWidget {
       );
     }
 
-    Widget buttonSignup() {
+    Widget buttonSignin() {
       return TextButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/register');
+          Navigator.pop(context);
         },
         style: TextButton.styleFrom(
           backgroundColor: bgButtonSignUp,
@@ -285,7 +424,7 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         child: Text(
-          "Sign Up",
+          "Sign In",
           style: buttonSignUpTextStyle.copyWith(
             fontWeight: semiBold,
             fontSize: 9,
@@ -294,7 +433,7 @@ class LoginPage extends StatelessWidget {
       );
     }
 
-    Widget signUp() {
+    Widget signIn() {
       return Container(
         margin: EdgeInsets.only(
           top: 40,
@@ -305,7 +444,7 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Don\'t have an account? ',
+              'already have an account? ',
               style: buttonSignUpTextStyle.copyWith(
                 fontSize: 12,
               ),
@@ -313,7 +452,7 @@ class LoginPage extends StatelessWidget {
             Container(
               height: 30,
               width: 60,
-              child: buttonSignup(),
+              child: buttonSignin(),
             ),
           ],
         ),
@@ -321,7 +460,6 @@ class LoginPage extends StatelessWidget {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: Container(
         child: Stack(
           fit: StackFit.expand,
@@ -379,13 +517,15 @@ class LoginPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         titleContent(),
+                        NIKField(),
+                        nameField(),
+                        jabatanField(),
                         emailField(),
                         passwordField(),
-                        signInButton(),
-                        haveAccount(),
+                        registButton(),
                         loginOtherWays(),
                         logoLogin(),
-                        signUp(),
+                        signIn(),
                       ],
                     ),
                   ),

@@ -14,11 +14,12 @@ class HistoryPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
+          elevation: 1,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TabBar(
-                indicatorColor: Colors.lightGreen,
+                indicatorColor: Colors.blue,
                 tabs: [
                   Tab(
                     child: Text(
