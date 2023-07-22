@@ -6,11 +6,18 @@ class InProgressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        TransactionTile(),
-        TransactionTile(),
-      ],
+    return Container(
+      margin: EdgeInsets.only(bottom: 70),
+      child: ListView(
+        children: [
+          TransactionTile(),
+          TransactionTile(),
+          TransactionTile(),
+          TransactionTile(),
+          TransactionTile(),
+          TransactionTile(),
+        ],
+      ),
     );
   }
 }

@@ -1,14 +1,136 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:im_stepper/stepper.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:tolhackeys/theme.dart';
 
-class RegisterPage extends StatelessWidget {
+import 'package:intl/intl.dart';
+
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  DateTime selectedDate = DateTime.now();
+  TextEditingController _textEditingController = TextEditingController();
+  int currentStep = 0;
+  bool isCompleted = false;
+
+  GlobalKey<FormState> basicFormKey = GlobalKey<FormState>();
+  int activeIndex = 0;
+  int totalIndex = 3;
+
+  @override
   Widget build(BuildContext context) {
+    Widget firstNameField() {
+      return Container(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_name.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'First Name',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget lastNameField() {
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(
+          top: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_name.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Last Name',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget titleContent() {
       return Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: 32,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,11 +153,6 @@ class RegisterPage extends StatelessWidget {
     Widget NIKField() {
       return Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.only(
-          top: 55,
-          right: 20,
-          left: 20,
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -46,10 +163,7 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: BoxDecoration(
-                color: bgInput,
-                borderRadius: BorderRadius.circular(18),
-              ),
+              decoration: boxDecorationForm,
               child: Center(
                 child: Row(
                   children: [
@@ -86,13 +200,27 @@ class RegisterPage extends StatelessWidget {
       );
     }
 
-    Widget nameField() {
+    DateTime date = DateTime.now();
+    Future<void> _selectDate(BuildContext context) async {
+      final now = DateTime.now();
+      final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: date ?? now,
+          firstDate: DateTime(1900),
+          lastDate: now);
+      if (picked != null && picked != date) {
+        print('hello $picked');
+        setState(() {
+          date = picked;
+        });
+      }
+    }
+
+    Widget dateBirthField() {
       return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(
           top: 20,
-          right: 20,
-          left: 20,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,34 +232,42 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: BoxDecoration(
-                color: bgInput,
-                borderRadius: BorderRadius.circular(18),
-              ),
+              decoration: boxDecorationForm,
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/icon_name.png',
-                      width: 20,
+                      'assets/icon_cake.png',
+                      width: 22,
                       color: textSecondary,
                     ),
                     SizedBox(
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
+                      child: TextField(
                         style: inputTextStyle.copyWith(
                           fontSize: 14,
                           color: textInput,
                         ),
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration.collapsed(
-                          hintText: 'Nama',
+                          hintText: 'Date of Birth',
                           hintStyle: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
                           ),
                         ),
+                        controller: _textEditingController,
+                        onTap: () async {
+                          // Below line stops keyboard from appearing
+                          FocusScope.of(context).requestFocus(new FocusNode());
+                          // Show Date Picker Here
+                          await _selectDate(context);
+                          _textEditingController.text =
+                              DateFormat('yyyy/MM/dd').format(date);
+                          //setState(() {});
+                        },
                       ),
                     ),
                   ],
@@ -143,13 +279,14 @@ class RegisterPage extends StatelessWidget {
       );
     }
 
-    Widget jabatanField() {
+    // Initial Selected Value
+    String? dropdownValue;
+
+    Widget genderField() {
       return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(
           top: 20,
-          right: 20,
-          left: 20,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,40 +294,39 @@ class RegisterPage extends StatelessWidget {
             Container(
               height: 50,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(
-                horizontal: 18,
-                vertical: 5,
-              ),
-              decoration: BoxDecoration(
-                color: bgInput,
-                borderRadius: BorderRadius.circular(18),
-              ),
+              padding: EdgeInsets.only(left: 18, right: 18),
+              decoration: boxDecorationForm,
               child: Center(
                 child: Row(
                   children: [
                     Image.asset(
-                      'assets/icon_jabatan.png',
-                      width: 20,
+                      'assets/icon_gender.png',
+                      width: 22,
                       color: textSecondary,
                     ),
                     SizedBox(
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Jabatan',
-                          hintStyle: inputTextStyle.copyWith(
-                            fontSize: 14,
-                            color: textInput,
-                          ),
-                        ),
+                        child: DropdownButtonFormField<String>(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
                       ),
-                    ),
+                      hint: const Text('Gender'),
+                      value: dropdownValue,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue!;
+                        });
+                      },
+                      items: <String>['Male', 'Female']
+                          .map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    )),
                   ],
                 ),
               ),
@@ -205,8 +341,6 @@ class RegisterPage extends StatelessWidget {
         alignment: Alignment.center,
         margin: EdgeInsets.only(
           top: 20,
-          right: 20,
-          left: 20,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,10 +352,7 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: BoxDecoration(
-                color: bgInput,
-                borderRadius: BorderRadius.circular(18),
-              ),
+              decoration: boxDecorationForm,
               child: Center(
                 child: Row(
                   children: [
@@ -257,13 +388,61 @@ class RegisterPage extends StatelessWidget {
       );
     }
 
+    Widget phoneNumberField() {
+      return Container(
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_phone.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        style: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
+                        ),
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Phone',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     Widget passwordField() {
       return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(
-          top: 24,
-          right: 20,
-          left: 20,
+          top: 20,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -275,10 +454,7 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 16,
                 vertical: 6,
               ),
-              decoration: BoxDecoration(
-                color: bgInput,
-                borderRadius: BorderRadius.circular(24),
-              ),
+              decoration: boxDecorationForm,
               child: Center(
                 child: Row(
                   children: [
@@ -313,51 +489,13 @@ class RegisterPage extends StatelessWidget {
       );
     }
 
-    Widget registButton() {
-      return Center(
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.9,
-              margin: EdgeInsets.only(
-                top: 30,
-                right: 20,
-                left: 20,
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/home-main');
-                },
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      24,
-                    ),
-                  ),
-                ),
-                child: Text(
-                  "Sign Up",
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: medium,
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
     Widget loginOtherWays() {
       return Container(
         margin: EdgeInsets.only(
           top: 25,
-          right: 20,
-          left: 20,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: 32,
         ),
         child: Column(
           children: [
@@ -394,10 +532,6 @@ class RegisterPage extends StatelessWidget {
       return Align(
         alignment: Alignment.center,
         child: Container(
-          margin: EdgeInsets.only(
-            right: 20,
-            left: 20,
-          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -425,35 +559,13 @@ class RegisterPage extends StatelessWidget {
       );
     }
 
-    Widget buttonSignin() {
-      return TextButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        style: TextButton.styleFrom(
-          backgroundColor: bgButtonSignUp,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              24,
-            ),
-          ),
-        ),
-        child: Text(
-          "Sign In",
-          style: buttonSignUpTextStyle.copyWith(
-            fontWeight: semiBold,
-            fontSize: 9,
-          ),
-        ),
-      );
-    }
-
     Widget signIn() {
       return Container(
         margin: EdgeInsets.only(
           top: 40,
-          left: 20,
-          right: 20,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: 32,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -464,12 +576,150 @@ class RegisterPage extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
-            Container(
-              height: 30,
-              width: 60,
-              child: buttonSignin(),
-            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Sign In',
+                style: LinkTextStyle.copyWith(fontSize: 11, fontWeight: medium),
+              ),
+            )
           ],
+        ),
+      );
+    }
+
+    List<Step> getSteps() => [
+          Step(
+              title: Text(
+                'Personal',
+                style: secondaryTextStyle.copyWith(fontWeight: bold),
+              ),
+              content: Column(
+                children: [
+                  firstNameField(),
+                  lastNameField(),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+              isActive: currentStep >= 0,
+              state: currentStep <= 0 ? StepState.indexed : StepState.complete),
+          Step(
+              title: Text('Identity',
+                  style: secondaryTextStyle.copyWith(fontWeight: bold)),
+              content: Column(
+                children: [
+                  NIKField(),
+                  dateBirthField(),
+                  genderField(),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+              isActive: currentStep >= 1,
+              state: currentStep <= 1 ? StepState.indexed : StepState.complete),
+          Step(
+              title: Text(
+                'Account',
+                style: secondaryTextStyle.copyWith(fontWeight: bold),
+              ),
+              content: Column(
+                children: [
+                  phoneNumberField(),
+                  emailField(),
+                  passwordField(),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+              isActive: currentStep >= 2,
+              state: currentStep >= 2 ? StepState.indexed : StepState.indexed)
+        ];
+
+    continueStep() {
+      final isLastStep = currentStep == getSteps().length - 1;
+      if (isLastStep) {
+        Navigator.pushNamed(context, "/home-main");
+      }
+      if (currentStep < 2) {
+        setState(() {
+          currentStep = currentStep + 1;
+        });
+      }
+    }
+
+    cancelStep() {
+      if (currentStep > 0) {
+        setState(() {
+          currentStep = currentStep - 1;
+        });
+      }
+    }
+
+    onStepTapped(int value) {
+      setState(() {
+        currentStep = value;
+      });
+    }
+
+    Widget controlsBuilder(context, details) {
+      final isLastStep = currentStep == getSteps().length - 1;
+      return Center(
+        child: Container(
+          margin: EdgeInsets.only(
+            top: 5,
+          ),
+          height: 50,
+          child: Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size.fromHeight(50),
+                    primary: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                  ),
+                  onPressed: details.onStepContinue,
+                  child: Text(
+                    isLastStep ? "Sign Up" : "Next",
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 16, fontWeight: semiBold),
+                  ),
+                ),
+              ),
+              if (currentStep != 0)
+                SizedBox(
+                  width: 10,
+                ),
+              if (currentStep != 0)
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size.fromHeight(50),
+                    primary: const Color.fromARGB(255, 160, 149, 149),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                    ),
+                  ),
+                  onPressed: details.onStepCancel,
+                  child: Text(
+                    "Back",
+                    style: primaryTextStyle.copyWith(
+                        fontSize: 16, fontWeight: semiBold),
+                  ),
+                ),
+            ],
+          ),
         ),
       );
     }
@@ -518,7 +768,6 @@ class RegisterPage extends StatelessWidget {
                 return Container(
                   padding: EdgeInsets.symmetric(
                     vertical: 21,
-                    horizontal: 32,
                   ),
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -532,12 +781,28 @@ class RegisterPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         titleContent(),
-                        NIKField(),
-                        nameField(),
-                        jabatanField(),
-                        emailField(),
-                        passwordField(),
-                        registButton(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 360,
+                          child: Theme(
+                            data: ThemeData(
+                              canvasColor: Colors.white,
+                            ),
+                            child: Stepper(
+                              elevation: 0,
+                              physics: ClampingScrollPhysics(),
+                              type: StepperType.horizontal,
+                              currentStep: currentStep,
+                              onStepContinue: continueStep,
+                              onStepCancel: cancelStep,
+                              onStepTapped: onStepTapped,
+                              controlsBuilder: controlsBuilder,
+                              steps: getSteps(),
+                            ),
+                          ),
+                        ),
                         loginOtherWays(),
                         logoLogin(),
                         signIn(),

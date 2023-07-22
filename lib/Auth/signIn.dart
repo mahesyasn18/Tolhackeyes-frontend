@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:tolhackeys/theme.dart';
 
 class LoginPage extends StatelessWidget {
@@ -9,6 +10,9 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget titleContent() {
       return Container(
+        padding: EdgeInsets.symmetric(
+          horizontal: 32,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -33,8 +37,8 @@ class LoginPage extends StatelessWidget {
         alignment: Alignment.center,
         margin: EdgeInsets.only(
           top: 55,
-          right: 20,
-          left: 20,
+          right: 25,
+          left: 25,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,6 +72,8 @@ class LoginPage extends StatelessWidget {
                             color: textInput,
                           ),
                         ),
+                        validator: EmailValidator(
+                            errorText: 'enter a valid email address'),
                       ),
                     ),
                   ],
@@ -79,13 +85,21 @@ class LoginPage extends StatelessWidget {
       );
     }
 
+    final passwordValidator = MultiValidator([
+      RequiredValidator(errorText: 'password is required'),
+      MinLengthValidator(8,
+          errorText: 'password must be at least 8 digits long'),
+      PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+          errorText: 'passwords must have at least one special character')
+    ]);
+
     Widget passwordField() {
       return Container(
         alignment: Alignment.center,
         margin: EdgeInsets.only(
           top: 24,
-          right: 20,
-          left: 20,
+          right: 25,
+          left: 25,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,18 +122,18 @@ class LoginPage extends StatelessWidget {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle,
-                        obscureText: true,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Password',
-                          hintStyle: inputTextStyle.copyWith(
-                            fontSize: 14,
-                            color: textInput,
-                          ),
+                        child: TextFormField(
+                      style: inputTextStyle,
+                      obscureText: true,
+                      decoration: InputDecoration.collapsed(
+                        hintText: 'Password',
+                        hintStyle: inputTextStyle.copyWith(
+                          fontSize: 14,
+                          color: textInput,
                         ),
                       ),
-                    ),
+                      validator: (passwordValidator),
+                    )),
                   ],
                 ),
               ),
@@ -138,8 +152,8 @@ class LoginPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.9,
               margin: EdgeInsets.only(
                 top: 30,
-                right: 20,
-                left: 20,
+                right: 25,
+                left: 25,
               ),
               child: TextButton(
                 onPressed: () {
@@ -149,7 +163,7 @@ class LoginPage extends StatelessWidget {
                   backgroundColor: Colors.black,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                      24,
+                      10,
                     ),
                   ),
                 ),
@@ -173,7 +187,6 @@ class LoginPage extends StatelessWidget {
         margin: EdgeInsets.only(
           top: 24,
           bottom: 20,
-          right: 20,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -189,7 +202,7 @@ class LoginPage extends StatelessWidget {
                 Navigator.pushNamed(context, '/sign-up');
               },
               child: Text(
-                'ResetPassword',
+                'Reset Password',
                 style: LinkTextStyle.copyWith(fontSize: 11, fontWeight: medium),
               ),
             ),
@@ -271,29 +284,6 @@ class LoginPage extends StatelessWidget {
       );
     }
 
-    Widget buttonSignup() {
-      return TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/register');
-        },
-        style: TextButton.styleFrom(
-          backgroundColor: bgButtonSignUp,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              24,
-            ),
-          ),
-        ),
-        child: Text(
-          "Sign Up",
-          style: buttonSignUpTextStyle.copyWith(
-            fontWeight: semiBold,
-            fontSize: 9,
-          ),
-        ),
-      );
-    }
-
     Widget signUp() {
       return Container(
         margin: EdgeInsets.only(
@@ -310,10 +300,14 @@ class LoginPage extends StatelessWidget {
                 fontSize: 12,
               ),
             ),
-            Container(
-              height: 30,
-              width: 60,
-              child: buttonSignup(),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, '/register');
+              },
+              child: Text(
+                'Sign Up',
+                style: LinkTextStyle.copyWith(fontSize: 11, fontWeight: medium),
+              ),
             ),
           ],
         ),
@@ -365,7 +359,6 @@ class LoginPage extends StatelessWidget {
                 return Container(
                   padding: EdgeInsets.symmetric(
                     vertical: 21,
-                    horizontal: 32,
                   ),
                   width: double.infinity,
                   decoration: BoxDecoration(

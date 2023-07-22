@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tolhackeys/theme.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+class BACKUP extends StatelessWidget {
+  const BACKUP({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,10 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: boxDecorationForm,
+              decoration: BoxDecoration(
+                color: bgInput,
+                borderRadius: BorderRadius.circular(18),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -101,7 +104,10 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: boxDecorationForm,
+              decoration: BoxDecoration(
+                color: bgInput,
+                borderRadius: BorderRadius.circular(18),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -155,7 +161,10 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: boxDecorationForm,
+              decoration: BoxDecoration(
+                color: bgInput,
+                borderRadius: BorderRadius.circular(18),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -209,7 +218,10 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 18,
                 vertical: 5,
               ),
-              decoration: boxDecorationForm,
+              decoration: BoxDecoration(
+                color: bgInput,
+                borderRadius: BorderRadius.circular(18),
+              ),
               child: Center(
                 child: Row(
                   children: [
@@ -263,7 +275,10 @@ class RegisterPage extends StatelessWidget {
                 horizontal: 16,
                 vertical: 6,
               ),
-              decoration: boxDecorationForm,
+              decoration: BoxDecoration(
+                color: bgInput,
+                borderRadius: BorderRadius.circular(24),
+              ),
               child: Center(
                 child: Row(
                   children: [

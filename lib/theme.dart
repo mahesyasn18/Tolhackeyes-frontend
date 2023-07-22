@@ -54,7 +54,7 @@ FontWeight bold = FontWeight.w700;
 
 final boxDecorationForm = BoxDecoration(
   color: bgInput,
-  borderRadius: BorderRadius.circular(18),
+  borderRadius: BorderRadius.circular(10),
   boxShadow: [
     BoxShadow(
       color: Colors.black12,
