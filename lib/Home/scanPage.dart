@@ -249,6 +249,17 @@ class ScanPage extends StatelessWidget {
       );
     }
 
+    Widget upperTitle() {
+      return Container(
+        margin: EdgeInsets.only(top: 20),
+        child: Text(
+          'SIM Digital',
+          style:
+              secondaryTextStyle.copyWith(fontSize: 21, fontWeight: semiBold),
+        ),
+      );
+    }
+
     return Scaffold(
       body: Container(
         margin: EdgeInsets.symmetric(
@@ -257,11 +268,12 @@ class ScanPage extends StatelessWidget {
         ),
         child: Column(
           children: [
+            upperTitle(),
             simContent(),
             SizedBox(
               height: 40,
             ),
-            title(),
+            // title(),
           ],
         ),
       ),

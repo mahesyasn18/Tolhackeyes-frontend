@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
           right: 30,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
               child: Row(
@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "Mahesya Setia",
+                        "Neng Godzilla",
                         style: secondaryTextStyle.copyWith(
                           fontWeight: semiBold,
                           fontSize: 14,
@@ -55,9 +55,117 @@ class HomePage extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(
-              CupertinoIcons.bell_fill,
+            GestureDetector(
+              onTap: () {},
+              child: Icon(
+                CupertinoIcons.bell_fill,
+              ),
             ),
+          ],
+        ),
+      );
+    }
+
+    Widget contentWallet() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 40,
+          left: 32,
+          right: 32,
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 15,
+        ),
+        height: 60,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.06),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    "assets/icon_wallet.png",
+                    color: Colors.blue,
+                    width: 35,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        'TolhacPay',
+                        style: secondaryTextStyle.copyWith(fontWeight: medium),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        '50.000',
+                        style: secondaryTextStyle.copyWith(
+                            color: Colors.green, fontWeight: semiBold),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            VerticalDivider(
+              color: Colors.grey,
+            ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    "assets/icon_trophy.png",
+                    color: Colors.green,
+                    width: 32,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        'Your Point',
+                        style: secondaryTextStyle.copyWith(fontWeight: medium),
+                      ),
+                      SizedBox(
+                        height: 2,
+                      ),
+                      Text(
+                        '24 Points',
+                        style: secondaryTextStyle.copyWith(
+                            color: Colors.blue, fontWeight: semiBold),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
           ],
         ),
       );
@@ -92,28 +200,10 @@ class HomePage extends StatelessWidget {
 
     Widget contentCard() {
       return Container(
-        padding: EdgeInsets.only(top: 26, left: 38, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Saldo Anda',
-              style:
-                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Text(
-              'Rp. 100.000',
-              style:
-                  primaryTextStyle.copyWith(fontSize: 35, fontWeight: semiBold),
-            ),
-            Spacer(),
-            Text(
-              'Bank BRI',
-              style: primaryTextStyle.copyWith(fontSize: 15),
-            )
+            Image.asset('assets/banner.jpg', fit: BoxFit.cover),
           ],
         ),
       );
@@ -126,7 +216,7 @@ class HomePage extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(
-              top: 25,
+              top: 40,
             ),
           ),
           CarouselSlider(
@@ -136,23 +226,16 @@ class HomePage extends StatelessWidget {
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomLeft,
-                            colors: [
-                              Color(0xff130CB7),
-                              Color(0xff52E5E7),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(12)),
-                      child: contentCard(),
+                          borderRadius: BorderRadius.circular(12),
+                          color: Colors.black12),
+                      child:
+                          Image.asset('assets/banner.jpg', fit: BoxFit.cover),
                     );
                   },
                 );
               }).toList(),
               options: CarouselOptions(
-                height: 200,
-                aspectRatio: 16 / 9,
+                height: 170,
                 viewportFraction: 0.8,
                 initialPage: 0,
                 enableInfiniteScroll: true,
@@ -170,21 +253,52 @@ class HomePage extends StatelessWidget {
     Widget optionMenu() {
       return Container(
         margin: EdgeInsets.only(
-          top: 40,
+          top: 30,
           left: 32,
           right: 32,
         ),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, '/reward');
-              },
-              child: Container(
+        width: MediaQuery.of(context).size.width * 0.7,
+        child: Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/reward');
+                },
+                child: Container(
+                  width: 100,
+                  height: 74,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(58, 129, 60, 241),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          'assets/icon_reward.png',
+                          width: 30,
+                        ),
+                        Text(
+                          'Rewards',
+                          style: secondaryTextStyle,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 14,
+              ),
+              Container(
                 width: 100,
                 height: 74,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(58, 129, 60, 241),
+                  color: Color.fromARGB(58, 125, 154, 255),
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Container(
@@ -193,73 +307,46 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Image.asset(
-                        'assets/icon_reward.png',
-                        width: 30,
+                        'assets/icon_topup.png',
+                        width: 35,
                       ),
                       Text(
-                        'Rewards',
+                        'Top Up',
                         style: secondaryTextStyle,
                       )
                     ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 14,
-            ),
-            Container(
-              width: 100,
-              height: 74,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(58, 125, 154, 255),
-                borderRadius: BorderRadius.circular(24),
+              SizedBox(
+                width: 14,
               ),
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(
-                      'assets/icon_topup.png',
-                      width: 35,
-                    ),
-                    Text(
-                      'Top Up',
-                      style: secondaryTextStyle,
-                    )
-                  ],
+              Container(
+                width: 100,
+                height: 74,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(58, 119, 194, 145),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset(
+                        'assets/icon_sim.png',
+                        width: 35,
+                      ),
+                      Text(
+                        'SIM Digital',
+                        style: secondaryTextStyle,
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SizedBox(
-              width: 14,
-            ),
-            Container(
-              width: 100,
-              height: 74,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(58, 119, 194, 145),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: Container(
-                margin: EdgeInsets.symmetric(vertical: 8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Image.asset(
-                      'assets/icon_sim.png',
-                      width: 35,
-                    ),
-                    Text(
-                      'SIM Digital',
-                      style: secondaryTextStyle,
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     }
@@ -267,7 +354,7 @@ class HomePage extends StatelessWidget {
     Widget titleTransaction() {
       return Container(
         margin: EdgeInsets.only(
-          top: 24,
+          top: 35,
           left: 41,
           right: 41,
         ),
@@ -410,8 +497,10 @@ class HomePage extends StatelessWidget {
     return ListView(
       children: [
         header(),
-        alertText(),
+        // alertText(),
+
         cardItem(),
+        contentWallet(),
         optionMenu(),
         titleTransaction(),
         historyTransaction(),

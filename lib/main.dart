@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tolhackeys/Auth/onboardingPage.dart';
 import 'package:tolhackeys/Auth/register.dart';
 import 'package:tolhackeys/Auth/signIn.dart';
 import 'package:tolhackeys/Auth/splash.dart';
+import 'package:tolhackeys/Home/Transaction/RealtimePage.dart';
 import 'package:tolhackeys/Home/Transaction/detailTransactionPage.dart';
 import 'package:tolhackeys/Home/main.dart';
 import 'package:tolhackeys/Home/menu/rewardPage.dart';
@@ -21,12 +23,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => SplashPage(),
+        '/onBoarding': (context) => OnBoardingScreenPage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/home-main': (context) => MyHomePageState(),
         '/detail-transaction': (context) => DetailTransactionPage(),
         '/scan': (context) => ScanPage(),
         '/reward': (context) => RewardPage(),
+        '/realtime': (context) => RealtimePage(),
       },
     );
   }

@@ -13,19 +13,21 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     // TODO: implement initState
-    Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, '/login'));
+    Timer(Duration(seconds: 3),
+        () => Navigator.pushNamed(context, '/onBoarding'));
     super.initState();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xff443C68),
       body: Center(
         child: Container(
-          height: 200,
-          width: 200,
+          height: 300,
+          width: 300,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/example_splash.png'))),
+                  image: AssetImage('assets/LogoTolhackeyes.png'))),
         ),
       ),
     );

@@ -1,11 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:tolhackeys/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> emailFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> passwordFormKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Widget titleContent() {
@@ -31,6 +40,11 @@ class LoginPage extends StatelessWidget {
         ),
       );
     }
+
+    final emailValidator = MultiValidator([
+      RequiredValidator(errorText: 'Email is required'),
+      EmailValidator(errorText: 'Enter a valid email address'),
+    ]);
 
     Widget emailField() {
       return Container(
@@ -63,6 +77,8 @@ class LoginPage extends StatelessWidget {
                       width: 16,
                     ),
                     Expanded(
+                        child: Form(
+                      key: emailFormKey,
                       child: TextFormField(
                         style: inputTextStyle,
                         decoration: InputDecoration.collapsed(
@@ -72,10 +88,9 @@ class LoginPage extends StatelessWidget {
                             color: textInput,
                           ),
                         ),
-                        validator: EmailValidator(
-                            errorText: 'enter a valid email address'),
+                        validator: emailValidator,
                       ),
-                    ),
+                    )),
                   ],
                 ),
               ),
@@ -122,17 +137,20 @@ class LoginPage extends StatelessWidget {
                       width: 16,
                     ),
                     Expanded(
-                        child: TextFormField(
-                      style: inputTextStyle,
-                      obscureText: true,
-                      decoration: InputDecoration.collapsed(
-                        hintText: 'Password',
-                        hintStyle: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
+                        child: Form(
+                      key: passwordFormKey,
+                      child: TextFormField(
+                        style: inputTextStyle,
+                        obscureText: true,
+                        decoration: InputDecoration.collapsed(
+                          hintText: 'Password',
+                          hintStyle: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
                         ),
+                        validator: passwordValidator,
                       ),
-                      validator: (passwordValidator),
                     )),
                   ],
                 ),
@@ -157,7 +175,14 @@ class LoginPage extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home-main');
+                  if ((emailFormKey.currentState!.validate() ||
+                          passwordFormKey.currentState!.validate()) &&
+                      ((emailFormKey.currentState!.validate() &&
+                          passwordFormKey.currentState!.validate()))) {
+                    Navigator.pushNamed(context, '/home-main');
+                  } else {
+                    // Form is not valid, handle the error (e.g., show a snackbar).
+                  }
                 },
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.black,
@@ -249,6 +274,57 @@ class LoginPage extends StatelessWidget {
       );
     }
 
+    Widget termOfCondition() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 30,
+          right: 20,
+          left: 20,
+        ),
+        child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+              style:
+                  secondaryTextStyle.copyWith(fontSize: 10, color: Colors.grey),
+              children: [
+                TextSpan(text: 'By clicking Sign In, you agree to our '),
+                TextSpan(
+                  text: 'Terms of Service',
+                  style: secondaryTextStyle.copyWith(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      String url = "https://s.id/tolhackeyes-tos";
+                      var urllaunchable = await canLaunch(url);
+                      if (urllaunchable) {
+                        await launch(url);
+                      } else {
+                        print("URL can't be launch");
+                      }
+                    },
+                ),
+                TextSpan(text: ' and that you have read our '),
+                TextSpan(
+                  text: 'Privacy Policy',
+                  style: primaryTextStyle.copyWith(
+                    color: Colors.blue,
+                    fontSize: 10,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      String url = "https://s.id/tolhackeyes-privacy-police";
+                      var urllaunchable = await canLaunch(url);
+                      if (urllaunchable) {
+                        await launch(url);
+                      } else {
+                        print("URL can't be launch");
+                      }
+                    },
+                ),
+              ]),
+        ),
+      );
+    }
+
     Widget logoLogin() {
       return Align(
         alignment: Alignment.center,
@@ -324,7 +400,7 @@ class LoginPage extends StatelessWidget {
               width: double.infinity,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/bg_1.jpg"), fit: BoxFit.cover),
+                    image: AssetImage("assets/bg_4.jpg"), fit: BoxFit.cover),
               ),
               child: Container(
                 margin: EdgeInsets.only(
@@ -379,6 +455,7 @@ class LoginPage extends StatelessWidget {
                         loginOtherWays(),
                         logoLogin(),
                         signUp(),
+                        termOfCondition(),
                       ],
                     ),
                   ),

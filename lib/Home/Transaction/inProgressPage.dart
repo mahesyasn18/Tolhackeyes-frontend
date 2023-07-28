@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tolhackeys/Widget/transactionTile.dart';
+
+import 'package:tolhackeys/Widget/transactionTileInProgress.dart';
 
 class InProgressPage extends StatelessWidget {
   const InProgressPage({super.key});
@@ -10,12 +11,7 @@ class InProgressPage extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 70),
       child: ListView(
         children: [
-          TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
+          TransactionTileInProgress(),
         ],
       ),
     );

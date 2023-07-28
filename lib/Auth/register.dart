@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:im_stepper/stepper.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:form_field_validator/form_field_validator.dart';
+
 import 'package:tolhackeys/theme.dart';
 
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -19,7 +21,16 @@ class _RegisterPageState extends State<RegisterPage> {
   int currentStep = 0;
   bool isCompleted = false;
 
-  GlobalKey<FormState> basicFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> firstNameFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> lastNameFormKey = GlobalKey<FormState>();
+
+  final GlobalKey<FormState> nikFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> dateFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> genderFormKey = GlobalKey<FormState>();
+
+  final GlobalKey<FormState> phoneFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> emailFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> passwordFormKey = GlobalKey<FormState>();
   int activeIndex = 0;
   int totalIndex = 3;
 
@@ -51,16 +62,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'First Name',
-                          hintStyle: inputTextStyle.copyWith(
+                      child: Form(
+                        key: firstNameFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
+                          ),
+                          validator: RequiredValidator(
+                              errorText: "first name is required"),
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'First Name',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
                           ),
                         ),
                       ),
@@ -103,16 +119,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Last Name',
-                          hintStyle: inputTextStyle.copyWith(
+                      child: Form(
+                        key: lastNameFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
+                          ),
+                          validator: RequiredValidator(
+                              errorText: "last name is required"),
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Last Name',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
                           ),
                         ),
                       ),
@@ -150,6 +171,11 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
 
+    final nikValidator = MultiValidator([
+      RequiredValidator(errorText: 'NIK is required'),
+      LengthRangeValidator(
+          min: 16, max: 16, errorText: 'NIK must be at 16 digits long')
+    ]);
     Widget NIKField() {
       return Container(
         alignment: Alignment.center,
@@ -176,17 +202,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'NIK',
-                          hintStyle: inputTextStyle.copyWith(
+                      child: Form(
+                        key: nikFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
+                          ),
+                          validator: nikValidator,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'NIK',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
                           ),
                         ),
                       ),
@@ -245,29 +275,35 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Date of Birth',
-                          hintStyle: inputTextStyle.copyWith(
+                      child: Form(
+                        key: dateFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
                           ),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Date of Birth',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
+                          ),
+                          validator: RequiredValidator(
+                              errorText: "Date of Birth is required"),
+                          controller: _textEditingController,
+                          onTap: () async {
+                            // Below line stops keyboard from appearing
+                            FocusScope.of(context)
+                                .requestFocus(new FocusNode());
+                            // Show Date Picker Here
+                            await _selectDate(context);
+                            _textEditingController.text =
+                                DateFormat('yyyy/MM/dd').format(date);
+                            //setState(() {});
+                          },
                         ),
-                        controller: _textEditingController,
-                        onTap: () async {
-                          // Below line stops keyboard from appearing
-                          FocusScope.of(context).requestFocus(new FocusNode());
-                          // Show Date Picker Here
-                          await _selectDate(context);
-                          _textEditingController.text =
-                              DateFormat('yyyy/MM/dd').format(date);
-                          //setState(() {});
-                        },
                       ),
                     ),
                   ],
@@ -280,8 +316,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     // Initial Selected Value
-    String? dropdownValue;
-
+    String dropdownValue = 'Male';
     Widget genderField() {
       return Container(
         alignment: Alignment.center,
@@ -308,77 +343,31 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                        child: DropdownButtonFormField<String>(
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
+                        child: Form(
+                      key:
+                          genderFormKey, // Use the GlobalKey<FormState> you defined earlier
+                      child: DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                        hint: Text('Gender'),
+                        value: dropdownValue,
+                        validator:
+                            RequiredValidator(errorText: "Gender is required"),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        },
+                        items: <String>['Male', 'Female']
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
                       ),
-                      hint: const Text('Gender'),
-                      value: dropdownValue,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue!;
-                        });
-                      },
-                      items: <String>['Male', 'Female']
-                          .map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
                     )),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    Widget emailField() {
-      return Container(
-        alignment: Alignment.center,
-        margin: EdgeInsets.only(
-          top: 20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.symmetric(
-                horizontal: 18,
-                vertical: 5,
-              ),
-              decoration: boxDecorationForm,
-              child: Center(
-                child: Row(
-                  children: [
-                    Image.asset(
-                      'assets/icon_email.png',
-                      width: 20,
-                      color: textSecondary,
-                    ),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'E-mail',
-                          hintStyle: inputTextStyle.copyWith(
-                            fontSize: 14,
-                            color: textInput,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -414,17 +403,22 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Phone',
-                          hintStyle: inputTextStyle.copyWith(
+                      child: Form(
+                        key: phoneFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
+                          ),
+                          keyboardType: TextInputType.number,
+                          validator: RequiredValidator(
+                              errorText: "phone number is required"),
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Phone',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
                           ),
                         ),
                       ),
@@ -438,6 +432,74 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
 
+    final emailValidator = MultiValidator([
+      RequiredValidator(errorText: 'Email is required'),
+      EmailValidator(errorText: 'Enter a valid email address'),
+    ]);
+
+    Widget emailField() {
+      return Container(
+        alignment: Alignment.center,
+        margin: EdgeInsets.only(
+          top: 20,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_email.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Form(
+                        key: emailFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                          validator: emailValidator,
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'E-mail',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    final passwordValidator = MultiValidator([
+      RequiredValidator(errorText: 'password is required'),
+      MinLengthValidator(8,
+          errorText: 'password must be at least 8 digits long'),
+      PatternValidator(r'(?=.*?[#?!@$%^&*-])',
+          errorText: 'passwords must have at least one special character')
+    ]);
     Widget passwordField() {
       return Container(
         alignment: Alignment.center,
@@ -465,17 +527,21 @@ class _RegisterPageState extends State<RegisterPage> {
                       width: 16,
                     ),
                     Expanded(
-                      child: TextFormField(
-                        style: inputTextStyle.copyWith(
-                          fontSize: 14,
-                          color: textInput,
-                        ),
-                        obscureText: true,
-                        decoration: InputDecoration.collapsed(
-                          hintText: 'Password',
-                          hintStyle: inputTextStyle.copyWith(
+                      child: Form(
+                        key: passwordFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
                             fontSize: 14,
                             color: textInput,
+                          ),
+                          obscureText: true,
+                          validator: passwordValidator,
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'Password',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
                           ),
                         ),
                       ),
@@ -644,12 +710,37 @@ class _RegisterPageState extends State<RegisterPage> {
     continueStep() {
       final isLastStep = currentStep == getSteps().length - 1;
       if (isLastStep) {
-        Navigator.pushNamed(context, "/home-main");
+        if ((phoneFormKey.currentState!.validate() ||
+                emailFormKey.currentState!.validate() ||
+                passwordFormKey.currentState!.validate()) &&
+            ((phoneFormKey.currentState!.validate() &&
+                emailFormKey.currentState!.validate() &&
+                passwordFormKey.currentState!.validate()))) {
+          Navigator.pushNamed(context, "/home-main");
+        }
       }
       if (currentStep < 2) {
-        setState(() {
-          currentStep = currentStep + 1;
-        });
+        if (currentStep == 0) {
+          if ((firstNameFormKey.currentState!.validate() ||
+                  lastNameFormKey.currentState!.validate()) &&
+              ((firstNameFormKey.currentState!.validate() &&
+                  lastNameFormKey.currentState!.validate()))) {
+            setState(() {
+              currentStep = currentStep + 1;
+            });
+          }
+        } else if (currentStep == 1) {
+          if ((nikFormKey.currentState!.validate() ||
+                  dateFormKey.currentState!.validate() ||
+                  genderFormKey.currentState!.validate()) &&
+              ((nikFormKey.currentState!.validate() &&
+                  dateFormKey.currentState!.validate() &&
+                  genderFormKey.currentState!.validate()))) {
+            setState(() {
+              currentStep = currentStep + 1;
+            });
+          }
+        }
       }
     }
 
@@ -662,9 +753,33 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     onStepTapped(int value) {
-      setState(() {
-        currentStep = value;
-      });
+      if (currentStep < 2) {
+        if (currentStep == 0) {
+          if ((firstNameFormKey.currentState!.validate() ||
+                  lastNameFormKey.currentState!.validate()) &&
+              ((firstNameFormKey.currentState!.validate() &&
+                  lastNameFormKey.currentState!.validate()))) {
+            setState(() {
+              currentStep = value;
+            });
+          }
+        } else if (currentStep == 1) {
+          if ((nikFormKey.currentState!.validate() ||
+                  dateFormKey.currentState!.validate() ||
+                  genderFormKey.currentState!.validate()) &&
+              ((nikFormKey.currentState!.validate() &&
+                  dateFormKey.currentState!.validate() &&
+                  genderFormKey.currentState!.validate()))) {
+            setState(() {
+              currentStep = value;
+            });
+          }
+        }
+      } else {
+        setState(() {
+          currentStep = value;
+        });
+      }
     }
 
     Widget controlsBuilder(context, details) {
@@ -724,6 +839,57 @@ class _RegisterPageState extends State<RegisterPage> {
       );
     }
 
+    Widget termOfCondition() {
+      return Container(
+        margin: EdgeInsets.only(
+          top: 25,
+          right: 20,
+          left: 20,
+        ),
+        child: RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+              style:
+                  secondaryTextStyle.copyWith(fontSize: 9, color: Colors.grey),
+              children: [
+                TextSpan(text: 'By clicking Sign Up, you agree to our '),
+                TextSpan(
+                  text: 'Terms of Service',
+                  style: secondaryTextStyle.copyWith(color: Colors.blue),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      String url = "https://s.id/tolhackeyes-tos";
+                      var urllaunchable = await canLaunch(url);
+                      if (urllaunchable) {
+                        await launch(url);
+                      } else {
+                        print("URL can't be launch");
+                      }
+                    },
+                ),
+                TextSpan(text: ' and that you have read our '),
+                TextSpan(
+                  text: 'Privacy Policy',
+                  style: primaryTextStyle.copyWith(
+                    color: Colors.blue,
+                    fontSize: 9,
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () async {
+                      String url = "https://s.id/tolhackeyes-privacy-police";
+                      var urllaunchable = await canLaunch(url);
+                      if (urllaunchable) {
+                        await launch(url);
+                      } else {
+                        print("URL can't be launch");
+                      }
+                    },
+                ),
+              ]),
+        ),
+      );
+    }
+
     return Scaffold(
       body: Container(
         child: Stack(
@@ -733,7 +899,7 @@ class _RegisterPageState extends State<RegisterPage> {
               width: double.infinity,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/bg_1.jpg"), fit: BoxFit.cover),
+                    image: AssetImage("assets/bg_4.jpg"), fit: BoxFit.cover),
               ),
               child: Container(
                 margin: EdgeInsets.only(
@@ -806,6 +972,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         loginOtherWays(),
                         logoLogin(),
                         signIn(),
+                        termOfCondition(),
                       ],
                     ),
                   ),
