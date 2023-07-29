@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Garly Nugraha",
+                      "Neng Godzilla",
                       style: secondaryTextStyle.copyWith(
                           fontSize: 17, fontWeight: bold),
                     ),
@@ -242,6 +242,57 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  Widget personalInfo() {
+    return Container(
+      margin: EdgeInsets.only(
+        top: 20,
+      ),
+      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.06),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Plat Nomor',
+                style: secondaryTextStyle.copyWith(fontSize: 15),
+              ),
+              Text(
+                'B 1745 KJ',
+                style: secondaryTextStyle.copyWith(fontSize: 15),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Nomor SIM',
+                style: secondaryTextStyle.copyWith(fontSize: 15),
+              ),
+              Text(
+                '120042132125',
+                style: secondaryTextStyle.copyWith(fontSize: 15),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -254,6 +305,7 @@ class ProfilePage extends StatelessWidget {
         child: ListView(
           children: [
             header(),
+            personalInfo(),
             titleInformasiUmum(),
             informasiUmum(),
             titlePreferency(),

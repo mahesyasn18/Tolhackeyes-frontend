@@ -94,7 +94,8 @@ class _MyHomePageStateState extends State<MyHomePageState> {
                   onItemTapped(2);
                 },
                 child: Image.asset(
-                  'assets/scan.png',
+                  'assets/icon_card.png',
+                  color: Colors.white,
                   width: 24,
                 ),
                 backgroundColor: Colors.blue,

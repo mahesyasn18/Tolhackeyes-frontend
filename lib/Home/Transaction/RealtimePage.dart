@@ -11,14 +11,16 @@ class RealtimePage extends StatefulWidget {
 class _RealtimePageState extends State<RealtimePage> {
   @override
   Widget build(BuildContext context) {
-    // Widget traffic() {
-    //   return Container(child: ,);
-    // }
+    Widget traffic() {
+      return Container(
+        child: Image.asset('assets/chart.png'),
+      );
+    }
 
     Widget contentPrice() {
       return Center(
         child: Container(
-          margin: EdgeInsets.only(top: 20),
+          margin: EdgeInsets.only(top: 30),
           child: Column(
             children: [
               Text(
@@ -32,7 +34,7 @@ class _RealtimePageState extends State<RealtimePage> {
               Text(
                 'Rp. 32.000',
                 style: secondaryTextStyle.copyWith(
-                    fontWeight: semiBold, fontSize: 30),
+                    fontWeight: semiBold, fontSize: 30, color: Colors.green),
               ),
             ],
           ),
@@ -108,6 +110,43 @@ class _RealtimePageState extends State<RealtimePage> {
       );
     }
 
+    Widget payButtpn() {
+      return Center(
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width * 0.9,
+              margin: EdgeInsets.only(
+                right: 25,
+                left: 25,
+                bottom: 30,
+              ),
+              child: TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 71, 10, 162),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                      10,
+                    ),
+                  ),
+                ),
+                child: Text(
+                  "Pay",
+                  style: primaryTextStyle.copyWith(
+                    fontWeight: medium,
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -126,9 +165,11 @@ class _RealtimePageState extends State<RealtimePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // traffic(),
+              traffic(),
               contentPrice(),
               contentInformasiPerjalanan(),
+              Spacer(),
+              payButtpn(),
             ],
           ),
         ));

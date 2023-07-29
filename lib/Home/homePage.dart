@@ -198,12 +198,86 @@ class HomePage extends StatelessWidget {
       );
     }
 
+    // Widget contentCard() {
+    //   return Container(
+    //     child: Column(
+    //       crossAxisAlignment: CrossAxisAlignment.start,
+    //       children: [
+    //         Image.asset('assets/banner.jpg', fit: BoxFit.cover),
+    //       ],
+    //     ),
+    //   );
+    // }
+
+    // Widget cardItem() {
+    //   int index = -1;
+
+    //   return Column(
+    //     children: [
+    //       Container(
+    //         margin: EdgeInsets.only(
+    //           top: 40,
+    //         ),
+    //       ),
+    //       CarouselSlider(
+    //           items: [1, 2, 3].map((i) {
+    //             return Builder(
+    //               builder: (BuildContext context) {
+    //                 return Container(
+    //                   width: MediaQuery.of(context).size.width,
+    //                   decoration: BoxDecoration(
+    //                       borderRadius: BorderRadius.circular(12),
+    //                       color: Colors.black12),
+    //                   child:
+    //                       Image.asset('assets/banner.jpg', fit: BoxFit.cover),
+    //                 );
+    //               },
+    //             );
+    //           }).toList(),
+    //           options: CarouselOptions(
+    //             height: 170,
+    //             viewportFraction: 0.8,
+    //             initialPage: 0,
+    //             enableInfiniteScroll: true,
+    //             reverse: false,
+    //             autoPlay: false,
+    //             autoPlayCurve: Curves.fastOutSlowIn,
+    //             enlargeCenterPage: true,
+    //             enlargeFactor: 0.3,
+    //             scrollDirection: Axis.horizontal,
+    //           )),
+    //     ],
+    //   );
+    // }
+
     Widget contentCard() {
       return Container(
+        padding: EdgeInsets.only(top: 26, left: 38, bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/banner.jpg', fit: BoxFit.cover),
+            Text(
+              'Saldo Anda',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: semiBold),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              'Rp. 100.000',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 35, fontWeight: semiBold),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Spacer(),
+            Text(
+              '5489 7654 3210 7894',
+              style:
+                  primaryTextStyle.copyWith(fontSize: 16, fontWeight: medium),
+            ),
           ],
         ),
       );
@@ -216,36 +290,24 @@ class HomePage extends StatelessWidget {
         children: [
           Container(
             margin: EdgeInsets.only(
-              top: 40,
+              top: 20,
+              left: 32,
+              right: 32,
             ),
-          ),
-          CarouselSlider(
-              items: [1, 2, 3].map((i) {
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          color: Colors.black12),
-                      child:
-                          Image.asset('assets/banner.jpg', fit: BoxFit.cover),
-                    );
-                  },
-                );
-              }).toList(),
-              options: CarouselOptions(
-                height: 170,
-                viewportFraction: 0.8,
-                initialPage: 0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: false,
-                autoPlayCurve: Curves.fastOutSlowIn,
-                enlargeCenterPage: true,
-                enlargeFactor: 0.3,
-                scrollDirection: Axis.horizontal,
-              )),
+            width: MediaQuery.of(context).size.width,
+            height: 180,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    Color.fromARGB(255, 4, 16, 102),
+                    Colors.red,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(12)),
+            child: contentCard(),
+          )
         ],
       );
     }
@@ -497,10 +559,10 @@ class HomePage extends StatelessWidget {
     return ListView(
       children: [
         header(),
-        // alertText(),
+        alertText(),
 
         cardItem(),
-        contentWallet(),
+        // contentWallet(),
         optionMenu(),
         titleTransaction(),
         historyTransaction(),

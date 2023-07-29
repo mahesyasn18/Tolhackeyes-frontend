@@ -1,44 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flushbar/flutter_flushbar.dart';
 import 'package:tolhackeys/theme.dart';
 
-class RewardPage extends StatelessWidget {
+class RewardPage extends StatefulWidget {
   const RewardPage({super.key});
 
   @override
+  State<RewardPage> createState() => _RewardPageState();
+}
+
+class _RewardPageState extends State<RewardPage> {
+  bool isClaimed = false;
+  @override
   Widget build(BuildContext context) {
-    Widget claimButton() {
-      return Center(
-        child: Column(
-          children: [
-            Container(
-              height: 50,
-              width: MediaQuery.of(context).size.width * 0.9,
-              margin: EdgeInsets.only(
-                top: 30,
-                right: 20,
-                left: 20,
-              ),
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      24,
-                    ),
-                  ),
-                ),
-                child: Text(
-                  "Claim",
-                  style: primaryTextStyle.copyWith(
-                    fontWeight: medium,
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-          ],
+    void _showSnackBar() {
+      final scaffoldContext = ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: Colors.green,
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            "Reward Berhasil di claim",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+      // Optional: To show the SnackBar at the top, set its margin explicitly
+      (scaffoldContext as ScaffoldMessengerState).showSnackBar(
+        SnackBar(
+          margin: EdgeInsets.only(top: 60.0),
+          content: Container(),
         ),
       );
     }
@@ -114,8 +104,77 @@ class RewardPage extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            claimButton(),
+            Center(
+              child: Column(
+                children: [
+                  Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    margin: EdgeInsets.only(
+                      top: 30,
+                      right: 20,
+                      left: 20,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          isClaimed = true;
+                        });
+                        Flushbar(
+                          flushbarPosition: FlushbarPosition.TOP,
+                          backgroundColor: Colors.green,
+                          title: "Success!",
+                          message: "Reward Berhasil di Claim",
+                          duration: Duration(seconds: 3),
+                          isDismissible: false,
+                        )..show(context);
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            24,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        "Claim",
+                        style: primaryTextStyle.copyWith(
+                          fontWeight: medium,
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
+        ),
+      );
+    }
+
+    Widget emptycontent() {
+      return Expanded(
+        child: Container(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/icon_gift.png',
+                width: 300,
+              ),
+              Text(
+                'No Reward',
+                style: secondaryTextStyle.copyWith(
+                  fontSize: 20,
+                  fontWeight: semiBold,
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -134,7 +193,7 @@ class RewardPage extends StatelessWidget {
       ),
       body: Container(
         margin: EdgeInsets.only(top: 30, left: 21, right: 21, bottom: 30),
-        child: content(),
+        child: isClaimed ? emptycontent() : content(),
       ),
     );
   }
