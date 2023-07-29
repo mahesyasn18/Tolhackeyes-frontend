@@ -71,7 +71,7 @@ class _MyHomePageStateState extends State<MyHomePageState> {
                   SizedBox(
                     width: 56,
                   ),
-                  buidNavBarItem(3, CupertinoIcons.bell, 'Violation'),
+                  buidNavBarItem(3, CupertinoIcons.bell, 'Notification'),
                   buidNavBarItem(4, CupertinoIcons.person, 'Profile'),
                 ],
               ),

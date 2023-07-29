@@ -26,8 +26,10 @@ class _SplashPageState extends State<SplashPage> {
           height: 300,
           width: 300,
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/LogoTolhackeyes.png'))),
+            image: DecorationImage(
+              image: AssetImage('assets/LogoTolhackeyes.png'),
+            ),
+          ),
         ),
       ),
     );

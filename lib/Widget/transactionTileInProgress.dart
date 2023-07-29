@@ -97,10 +97,22 @@ class TransactionTileInProgress extends StatelessWidget {
                     ],
                   ),
                 ),
-                Text(
-                  'Rp. 20.000,00',
-                  style: secondaryTextStyle,
-                )
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Rp. 32.000',
+                      style: secondaryTextStyle,
+                    ),
+                    Text(
+                      '- Rp. 3200',
+                      style: secondaryTextStyle.copyWith(
+                        color: Colors.red,
+                        fontWeight: semiBold,
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
           ],

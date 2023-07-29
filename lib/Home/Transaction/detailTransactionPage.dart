@@ -208,6 +208,26 @@ class DetailTransactionPage extends StatelessWidget {
       );
     }
 
+    void _showDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Popup Dialog'),
+            content: Text('This is the content of the dialog.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
