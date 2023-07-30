@@ -12,10 +12,6 @@ class completedPage extends StatelessWidget {
         children: [
           TransactionTile(),
           TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
-          TransactionTile(),
         ],
       ),
     );
