@@ -9,6 +9,10 @@ import 'package:tolhackeys/Home/Transaction/detailTransactionPage.dart';
 import 'package:tolhackeys/Home/main.dart';
 import 'package:tolhackeys/Home/menu/rewardPage.dart';
 import 'package:tolhackeys/Home/scanPage.dart';
+import 'package:tolhackeys/Home/top-up/keyboard/inputPage.dart';
+import 'package:tolhackeys/Home/top-up/keyboard/konfimasiTopUp.dart';
+import 'package:tolhackeys/Home/top-up/passwordPage.dart';
+import 'package:tolhackeys/Home/top-up/successTopUp.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +37,10 @@ class MyApp extends StatelessWidget {
         '/reward': (context) => RewardPage(),
         '/realtime': (context) => RealtimePage(),
         '/success': (context) => SuccessPaymentPage(),
+        '/input/top-up': (context) => CustomKeyboard(),
+        '/confirm/top-up': (context) => KonfirmasiPage(amountData: ""),
+        '/password/top-up': (context) => PasswordPage(),
+        '/success/top-up': (context) => SuccessTopUpPage(),
       },
     );
   }

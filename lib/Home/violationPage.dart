@@ -70,7 +70,7 @@ class _ViolationPageState extends State<ViolationPage> {
                           Text(
                             text == "get"
                                 ? 'Anda mendapatkan reward 15%'
-                                : 'reward 15% yang anda dapatkan sudah digunakan',
+                                : 'reward 15% sudah digunakan',
                             style: subtitleTextStyle.copyWith(fontSize: 11),
                           ),
                         ],

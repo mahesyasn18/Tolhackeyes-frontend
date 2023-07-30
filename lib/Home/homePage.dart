@@ -356,27 +356,32 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: 14,
               ),
-              Container(
-                width: 100,
-                height: 74,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(58, 125, 154, 255),
-                  borderRadius: BorderRadius.circular(24),
-                ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/input/top-up');
+                },
                 child: Container(
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Image.asset(
-                        'assets/icon_topup.png',
-                        width: 35,
-                      ),
-                      Text(
-                        'Top Up',
-                        style: secondaryTextStyle,
-                      )
-                    ],
+                  width: 100,
+                  height: 74,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(58, 125, 154, 255),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          'assets/icon_topup.png',
+                          width: 35,
+                        ),
+                        Text(
+                          'Top Up',
+                          style: secondaryTextStyle,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
