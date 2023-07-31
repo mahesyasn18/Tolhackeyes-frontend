@@ -329,7 +329,7 @@ class HomePage extends StatelessWidget {
                   Navigator.pushNamed(context, '/reward');
                 },
                 child: Container(
-                  width: 100,
+                  width: 90,
                   height: 74,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(58, 129, 60, 241),
@@ -354,14 +354,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 14,
+                width: 10,
               ),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, '/input/top-up');
                 },
                 child: Container(
-                  width: 100,
+                  width: 90,
                   height: 74,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(58, 125, 154, 255),
@@ -386,10 +386,10 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                width: 14,
+                width: 10,
               ),
               Container(
-                width: 100,
+                width: 90,
                 height: 74,
                 decoration: BoxDecoration(
                   color: Color.fromARGB(58, 119, 194, 145),
@@ -561,17 +561,20 @@ class HomePage extends StatelessWidget {
       );
     }
 
-    return ListView(
-      children: [
-        header(),
-        alertText(),
+    return Container(
+      margin: EdgeInsets.only(bottom: 40),
+      child: ListView(
+        children: [
+          header(),
+          alertText(),
 
-        cardItem(),
-        // contentWallet(),
-        optionMenu(),
-        titleTransaction(),
-        historyTransaction(),
-      ],
+          cardItem(),
+          // contentWallet(),
+          optionMenu(),
+          titleTransaction(),
+          historyTransaction(),
+        ],
+      ),
     );
   }
 }

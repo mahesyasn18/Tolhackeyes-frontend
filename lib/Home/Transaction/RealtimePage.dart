@@ -35,7 +35,7 @@ class _RealtimePageState extends State<RealtimePage> {
               Text(
                 'Rp. 32.000',
                 style: secondaryTextStyle.copyWith(
-                    fontWeight: semiBold, fontSize: 30, color: Colors.green),
+                    fontWeight: semiBold, fontSize: 27, color: Colors.green),
               ),
             ],
           ),
@@ -70,14 +70,14 @@ class _RealtimePageState extends State<RealtimePage> {
                       "Keluar Tol",
                       style: secondaryTextStyle.copyWith(
                         fontWeight: medium,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
                     Text(
                       "- 23 Km",
                       style: secondaryTextStyle.copyWith(
                         fontWeight: medium,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
                   ],
@@ -92,14 +92,14 @@ class _RealtimePageState extends State<RealtimePage> {
                       "Rest Area",
                       style: secondaryTextStyle.copyWith(
                         fontWeight: medium,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
                     Text(
                       "- 5 Km",
                       style: secondaryTextStyle.copyWith(
                         fontWeight: medium,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
                   ],
@@ -154,7 +154,7 @@ class _RealtimePageState extends State<RealtimePage> {
                     children: [
                       Text(
                         'Discount',
-                        style: secondaryTextStyle,
+                        style: secondaryTextStyle.copyWith(fontSize: 1),
                       ),
                       Text(
                         'Rp. 3200',
@@ -210,7 +210,7 @@ class _RealtimePageState extends State<RealtimePage> {
               margin: EdgeInsets.only(
                 right: 25,
                 left: 25,
-                bottom: 30,
+                bottom: 10,
               ),
               child: TextButton(
                 onPressed: () {
