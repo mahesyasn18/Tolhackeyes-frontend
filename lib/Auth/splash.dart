@@ -1,6 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tolhackeys/providers/infoperjalanan_provider.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
@@ -12,10 +12,17 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    // TODO: implement initState
-    Timer(Duration(seconds: 3),
-        () => Navigator.pushNamed(context, '/onBoarding'));
     super.initState();
+    getInit();
+  }
+
+  getInit() async {
+    // Call getinfo to fetch the data
+    await Provider.of<infoperjalananProvider>(context, listen: false).getinfo();
+    // Print the data in the debug console
+
+    print(Provider.of<infoperjalananProvider>(context, listen: false).info);
+    Navigator.pushNamed(context, '/onBoarding');
   }
 
   Widget build(BuildContext context) {
