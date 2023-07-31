@@ -23,10 +23,11 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final GlobalKey<FormState> firstNameFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> lastNameFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> genderFormKey = GlobalKey<FormState>();
 
   final GlobalKey<FormState> nikFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> simFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> dateFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> genderFormKey = GlobalKey<FormState>();
 
   final GlobalKey<FormState> phoneFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> emailFormKey = GlobalKey<FormState>();
@@ -213,6 +214,62 @@ class _RegisterPageState extends State<RegisterPage> {
                           keyboardType: TextInputType.number,
                           decoration: InputDecoration.collapsed(
                             hintText: 'NIK',
+                            hintStyle: inputTextStyle.copyWith(
+                              fontSize: 14,
+                              color: textInput,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    Widget SIMField() {
+      return Container(
+        margin: EdgeInsets.only(top: 20),
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              height: 50,
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.symmetric(
+                horizontal: 18,
+                vertical: 5,
+              ),
+              decoration: boxDecorationForm,
+              child: Center(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/icon_card.png',
+                      width: 20,
+                      color: textSecondary,
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Form(
+                        key: simFormKey,
+                        child: TextFormField(
+                          style: inputTextStyle.copyWith(
+                            fontSize: 14,
+                            color: textInput,
+                          ),
+                          validator:
+                              RequiredValidator(errorText: 'SIM is required'),
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration.collapsed(
+                            hintText: 'SIM Number',
                             hintStyle: inputTextStyle.copyWith(
                               fontSize: 14,
                               color: textInput,
@@ -666,6 +723,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   firstNameField(),
                   lastNameField(),
+                  genderField(),
                   SizedBox(
                     height: 10,
                   )
@@ -679,8 +737,8 @@ class _RegisterPageState extends State<RegisterPage> {
               content: Column(
                 children: [
                   NIKField(),
+                  SIMField(),
                   dateBirthField(),
-                  genderField(),
                   SizedBox(
                     height: 10,
                   )
@@ -722,20 +780,22 @@ class _RegisterPageState extends State<RegisterPage> {
       if (currentStep < 2) {
         if (currentStep == 0) {
           if ((firstNameFormKey.currentState!.validate() ||
-                  lastNameFormKey.currentState!.validate()) &&
+                  lastNameFormKey.currentState!.validate() ||
+                  genderFormKey.currentState!.validate()) &&
               ((firstNameFormKey.currentState!.validate() &&
-                  lastNameFormKey.currentState!.validate()))) {
+                      lastNameFormKey.currentState!.validate()) &&
+                  genderFormKey.currentState!.validate())) {
             setState(() {
               currentStep = currentStep + 1;
             });
           }
         } else if (currentStep == 1) {
           if ((nikFormKey.currentState!.validate() ||
-                  dateFormKey.currentState!.validate() ||
-                  genderFormKey.currentState!.validate()) &&
+                  simFormKey.currentState!.validate() ||
+                  dateFormKey.currentState!.validate()) &&
               ((nikFormKey.currentState!.validate() &&
-                  dateFormKey.currentState!.validate() &&
-                  genderFormKey.currentState!.validate()))) {
+                  simFormKey.currentState!.validate() &&
+                  dateFormKey.currentState!.validate()))) {
             setState(() {
               currentStep = currentStep + 1;
             });
@@ -756,9 +816,11 @@ class _RegisterPageState extends State<RegisterPage> {
       if (currentStep < 2) {
         if (currentStep == 0) {
           if ((firstNameFormKey.currentState!.validate() ||
-                  lastNameFormKey.currentState!.validate()) &&
+                  lastNameFormKey.currentState!.validate() ||
+                  genderFormKey.currentState!.validate()) &&
               ((firstNameFormKey.currentState!.validate() &&
-                  lastNameFormKey.currentState!.validate()))) {
+                      lastNameFormKey.currentState!.validate()) &&
+                  genderFormKey.currentState!.validate())) {
             setState(() {
               currentStep = value;
             });
@@ -766,10 +828,10 @@ class _RegisterPageState extends State<RegisterPage> {
         } else if (currentStep == 1) {
           if ((nikFormKey.currentState!.validate() ||
                   dateFormKey.currentState!.validate() ||
-                  genderFormKey.currentState!.validate()) &&
+                  simFormKey.currentState!.validate()) &&
               ((nikFormKey.currentState!.validate() &&
                   dateFormKey.currentState!.validate() &&
-                  genderFormKey.currentState!.validate()))) {
+                  simFormKey.currentState!.validate()))) {
             setState(() {
               currentStep = value;
             });
